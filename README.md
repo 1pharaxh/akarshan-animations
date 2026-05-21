@@ -12,4 +12,11 @@ npm run dev
 ```
 
 ## Current Animations
- - **Wallet animation**: Animation simulating putting and taking out things from a wallet. <video src="./docs/Wallet.mov" controls width="600"></video>
+ - **Wallet animation**: Animation simulating putting and taking out things from a wallet. 
+ https://github.com/user-attachments/assets/99394d1b-ba28-4e97-95d1-a09840fa8a09
+
+
+
+
+
+
