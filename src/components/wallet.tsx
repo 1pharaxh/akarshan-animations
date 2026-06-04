@@ -300,7 +300,7 @@ const Wallet = () => {
   );
 };
 
-export default Wallet;
+export { Wallet };
 
 const Receipt = (props: React.SVGProps<SVGSVGElement>) => {
   return (
