@@ -12,6 +12,9 @@ import {
   type AnimationPlaybackControls,
   type SVGMotionProps,
 } from "motion/react";
+import { cn } from "../../../lib/utils";
+import { SparklesCore } from "./sparkles";
+
 const Box = () => {
   const [scope, animate] = useAnimate();
   const [lidScope, lidAnimate] = useAnimate();
@@ -231,6 +234,18 @@ const Box = () => {
           width={368}
           className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 z-5"
         />
+
+        <motion.div className="w-90 h-28 overflow-clip -top-4 rounded-[4rem] bg-neutral-800 z-2 absolute left-1/2 -translate-x-1/2 ">
+          <SparklesCore
+            id="adad"
+            background="transparent"
+            minSize={0.8}
+            maxSize={1.2}
+            particleDensity={1000}
+            particleColor="#eab308"
+            className="w-full h-full"
+          ></SparklesCore>
+        </motion.div>
         <BoxBottom
           width={366}
           className="absolute bottom-0 left-1/2 -translate-x-1/2 z-1"

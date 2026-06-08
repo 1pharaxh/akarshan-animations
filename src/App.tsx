@@ -1,5 +1,5 @@
 // import Wallet from "@/components/wallet";
-import { Box } from "./components/box";
+import { Box } from "./components/box/box";
 import { Wallet } from "./components/wallet";
 
 function App() {
