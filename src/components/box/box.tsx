@@ -14,6 +14,7 @@ import {
 } from "motion/react";
 import { cn } from "../../../lib/utils";
 import { SparklesCore } from "./sparkles";
+import LightRays from "./light-rays";
 
 const Box = () => {
   const [scope, animate] = useAnimate();
@@ -207,50 +208,85 @@ const Box = () => {
   }, []);
 
   return (
-    <div
-      className=""
-      key={String()}
-      onMouseDown={() => {
-        onMouseDownStartAnimate(open);
-      }}
-      onMouseUp={() => {
-        onMouseUpEndShaking(open);
-      }}
-      onMouseLeave={onMouseLeaveStopAnimate}
-      ref={scope}
-    >
-      <motion.button
-        // key={String(hovered)}
-        style={{ originX: 0.5, originY: 1 }}
-        className="relative active:scale-95 active:transition-all cursor-pointer block origin-bottom w-30 h-50"
+    <div className="relative h-screen w-screen">
+      <div
+        className=" absolute  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+        key={String()}
+        onMouseDown={() => {
+          onMouseDownStartAnimate(open);
+        }}
+        onMouseUp={() => {
+          onMouseUpEndShaking(open);
+        }}
+        onMouseLeave={onMouseLeaveStopAnimate}
+        ref={scope}
       >
-        <Tape
-          width={96}
-          className="absolute bottom-15 left-1/2 -translate-x-1/2 z-10"
-        />
+        <motion.button
+          // key={String(hovered)}
+          style={{ originX: 0.5, originY: 1 }}
+          className="relative active:scale-95 active:transition-all cursor-pointer block origin-bottom w-30 h-50"
+        >
+          <Tape
+            width={96}
+            className="absolute bottom-15 left-1/2 -translate-x-1/2 z-10"
+          />
 
-        <BoxTop
-          ref={lidScope}
-          width={368}
-          className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 z-5"
-        />
+          <BoxTop
+            ref={lidScope}
+            width={368}
+            className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 z-5"
+          />
 
-        <motion.div className="w-90 h-28 overflow-clip -top-4 rounded-[4rem] bg-neutral-800 z-2 absolute left-1/2 -translate-x-1/2 ">
-          <SparklesCore
-            id="adad"
-            background="transparent"
-            minSize={0.8}
-            maxSize={1.2}
-            particleDensity={1000}
-            particleColor="#eab308"
-            className="w-full h-full"
-          ></SparklesCore>
-        </motion.div>
-        <BoxBottom
-          width={366}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 z-1"
+          <motion.div className="w-90 h-28 overflow-clip -top-4 rounded-[4rem] bg-neutral-800 z-2 absolute left-1/2 -translate-x-1/2 ">
+            <SparklesCore
+              id="adad"
+              background="transparent"
+              minSize={0.8}
+              maxSize={1.2}
+              particleDensity={1000}
+              particleColor="#eab308"
+              className="w-full h-full"
+            ></SparklesCore>
+          </motion.div>
+          <BoxBottom
+            width={366}
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 z-1"
+          />
+        </motion.button>
+      </div>
+
+      <div
+        className="
+        absolute w-230! 
+        
+        -translate-x-1/2 -translate-y-1/2 top-36 left-1/2
+
+        [clip-path:polygon(0%_0%,100%_0%,65%_100%,35%_100%)]
+
+       
+        [-webkit-mask-image:radial-gradient(ellipse_at_bottom,black_0%,transparent_70%)]"
+      >
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#EC4899"
+          raysSpeed={1}
+          lightSpread={0.5}
+          rayLength={3}
+          followMouse={true}
+          mouseInfluence={0.5}
+          noiseAmount={0}
+          distortion={0}
+          className=" 
+        rotate-180
+        -scale-x-100
+        
+        
+  "
+          pulsating={false}
+          fadeDistance={1}
+          saturation={1}
         />
-      </motion.button>
+      </div>
     </div>
   );
 };
