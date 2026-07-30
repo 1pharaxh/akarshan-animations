@@ -208,7 +208,7 @@ float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord,
   float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001));
 
   float distance = length(sourceToCoord);
-  float maxDistance = iResolution.x * rayLength;
+  float maxDistance = iResolution.y * rayLength;
   float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0);
   
   float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0);
@@ -223,8 +223,25 @@ float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord,
   return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse;
 }
 
+float trapezoidMask(vec2 uv) {
+  float y = uv.y;
+  float x = uv.x;
+  
+  // Trapezoid: wider at top (y=0: x from 0 to 1), narrower at bottom (y=1: x from 0.35 to 0.65)
+  float leftEdge = mix(0.0, 0.35, y);
+  float rightEdge = mix(1.0, 0.65, y);
+  
+  // Soft feathered edges
+  float edgeFeather = 0.08;
+  float maskLeft = smoothstep(leftEdge - edgeFeather, leftEdge + edgeFeather * 0.5, x);
+  float maskRight = smoothstep(rightEdge + edgeFeather, rightEdge - edgeFeather * 0.5, x);
+  
+  return maskLeft * maskRight;
+}
+ 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
   vec2 coord = vec2(fragCoord.x, iResolution.y - fragCoord.y);
+  vec2 uv = coord / iResolution.xy;
   
   vec2 finalRayDir = rayDir;
   if (mouseInfluence > 0.0) {
@@ -248,9 +265,9 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
   }
 
   float brightness = 1.0 - (coord.y / iResolution.y);
-  fragColor.x *= 0.1 + brightness * 0.8;
-  fragColor.y *= 0.3 + brightness * 0.6;
-  fragColor.z *= 0.5 + brightness * 0.5;
+  fragColor.x *= 1.0 + brightness * 0.8;
+  fragColor.y *= 1.0 + brightness * 0.6;
+  fragColor.z *= 1.0 + brightness * 0.5;
 
   if (saturation != 1.0) {
     float gray = dot(fragColor.rgb, vec3(0.299, 0.587, 0.114));
@@ -258,6 +275,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
   }
 
   fragColor.rgb *= raysColor;
+  fragColor.a *= trapezoidMask(uv);
 }
 
 void main() {

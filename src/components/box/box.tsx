@@ -237,17 +237,6 @@ const Box = () => {
             className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 z-5"
           />
 
-          <motion.div className="w-90 h-28 overflow-clip -top-4 rounded-[4rem] bg-neutral-800 z-2 absolute left-1/2 -translate-x-1/2 ">
-            <SparklesCore
-              id="adad"
-              background="transparent"
-              minSize={0.8}
-              maxSize={1.2}
-              particleDensity={1000}
-              particleColor="#eab308"
-              className="w-full h-full"
-            ></SparklesCore>
-          </motion.div>
           <BoxBottom
             width={366}
             className="absolute bottom-0 left-1/2 -translate-x-1/2 z-1"
@@ -255,38 +244,48 @@ const Box = () => {
         </motion.button>
       </div>
 
-      <div
-        className="
-        absolute w-230! 
+      <LightRays
+        raysOrigin="bottom-center"
+        raysColor="#FFFD00"
+        raysSpeed={1}
+        lightSpread={0.5}
+        rayLength={3}
+        followMouse={true}
+        mouseInfluence={0.1}
+        noiseAmount={0}
+        distortion={0}
+        className=" 
+    
+          absolute w-230! 
         
-        -translate-x-1/2 -translate-y-1/2 top-36 left-1/2
+        -translate-x-1/2 -translate-y-1/2 -top-2 left-1/2       
+      
+  "
+        pulsating={false}
+        fadeDistance={1}
+        saturation={0}
+      />
+      <motion.div
+        className="absolute w-230! 
+        
+        -translate-x-1/2 -translate-y-1/2 
+        top-50 left-1/2       
 
         [clip-path:polygon(0%_0%,100%_0%,65%_100%,35%_100%)]
 
        
-        [-webkit-mask-image:radial-gradient(ellipse_at_bottom,black_0%,transparent_70%)]"
+        [-webkit-mask-image:radial-gradient(ellipse_at_bottom,black_0%,transparent_70%)] "
       >
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#EC4899"
-          raysSpeed={1}
-          lightSpread={0.5}
-          rayLength={3}
-          followMouse={true}
-          mouseInfluence={0.5}
-          noiseAmount={0}
-          distortion={0}
-          className=" 
-        rotate-180
-        -scale-x-100
-        
-        
-  "
-          pulsating={false}
-          fadeDistance={1}
-          saturation={1}
-        />
-      </div>
+        <SparklesCore
+          id="adad"
+          background="transparent"
+          minSize={0.8}
+          maxSize={2.0}
+          particleDensity={200}
+          particleColor="#eab308"
+          className="w-full h-full"
+        ></SparklesCore>
+      </motion.div>
     </div>
   );
 };
